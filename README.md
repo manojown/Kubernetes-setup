@@ -120,3 +120,5 @@ subjects:
  
  **step - 4** now hit url in browser
   `http://sever-ip:port/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
+  
+  ex - ![](https://i.imgur.com/3mFL9wu.png)
