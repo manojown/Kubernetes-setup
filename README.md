@@ -87,3 +87,38 @@ To check service details -
 **By deafult all pods run on child node so your pod response get on child server ip:port**
 
 abstraction is Kubeam > service > Replication Controller > Pods > Container (docker or other)
+
+# setup dashboard for kubernetes .
+**step - 1**  `kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml`
+**step - 2** 
+    By default, the dashboard will install with minimum user role privileges.
+    
+    To access the dashboard with full administrative permission, create a YAML file named dashboard-admin.yaml.
+    
+    `vi dashboard-admin.yaml`
+```
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+   name: kubernetes-dashboard
+   labels:
+     k8s-app: kubernetes-dashboard
+roleRef:
+   apiGroup: rbac.authorization.k8s.io
+   kind: ClusterRole
+   name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-dashboard
+  namespace: kube-system
+```
+
+ **step - 3** 
+ `nohup kubectl proxy --address="your-server-ip" -p port --accept-hosts='^*$' &`
+ 
+ nohup added for run a front end server in background 
+ 
+ **step - 4** now hit url in browser
+  `http://sever-ip:port/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
+  
+  ex - ![](https://i.imgur.com/3mFL9wu.png)
