@@ -92,7 +92,9 @@ abstraction is Kubeam > service > Replication Controller > Pods > Container (doc
 **step - 1**  `kubectl create -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml`
 **step - 2** 
     By default, the dashboard will install with minimum user role privileges.
+    
     To access the dashboard with full administrative permission, create a YAML file named dashboard-admin.yaml.
+    
     `vi dashboard-admin.yaml`
 ```
 apiVersion: rbac.authorization.k8s.io/v1beta1
@@ -110,8 +112,11 @@ subjects:
   name: kubernetes-dashboard
   namespace: kube-system
 ```
+
  **step - 3** 
  `nohup kubectl proxy --address="your-server-ip" -p port --accept-hosts='^*$' &`
+ 
  nohup added for run a front end server in background 
-  **step - 4** now hit url in browser
+ 
+ **step - 4** now hit url in browser
   `http://sever-ip:port/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`
